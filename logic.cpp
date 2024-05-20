@@ -1,26 +1,34 @@
 #include<iostream>
 #include<string>
-#include<stdio.h>
+#include<ncurses.h>
 
 using namespace std;
 
 int main(){
 
+    initscr();
+    cbreak();
+    noecho();
+
     string s = "parrot carrot car";
+    printw("%s\n", s.c_str());
+
     char input;
     int count = 0;
 
-    while(count != s.size() - 1){
+    while(count < s.size()){
 
-        cin >> input;
-        if (input != s[count]){
-            cout << "Неправильный символ";
-        }
-        else{
-            cout << input;
+        input = getch();
+        
+        if(input == s[count]){
+            printw("%c", input);
             count++;
         }
+    
+        refresh();
     }
+
+    endwin();
 
 
     return 0;
